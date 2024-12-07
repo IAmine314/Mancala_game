@@ -1,4 +1,5 @@
 
+
 class Game:
     def __init__(self, state, player_side):
         self.state = state
