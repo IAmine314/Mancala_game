@@ -11,14 +11,14 @@ class Game:
 
         if player1_empty:
 
-            for pit in self.state.player1_pits:
-                self.state.board[1] += self.state.board[pit]
+            for pit in self.state.player2_pits:
+                self.state.board[2] += self.state.board[pit]
                 self.state.board[pit] = 0
 
             return True
         elif player2_empty:
-            for pit in self.state.player2_pits:
-                self.state.board[2] += self.state.board[pit]
+            for pit in self.state.player1_pits:
+                self.state.board[1] += self.state.board[pit]
                 self.state.board[pit] = 0
 
             return True

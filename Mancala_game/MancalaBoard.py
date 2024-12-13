@@ -1,5 +1,5 @@
 
-
+import pygame
 class MancalaBoard:
     def __init__(self):
         self.board = {
@@ -30,29 +30,30 @@ class MancalaBoard:
     def do_move(self, player, pit):
 
         if pit not in self.possible_moves(player):
+            pygame.quit()
             raise ValueError("invalid move : pit is empty or does not belong to this player")
-        
-        seeds = self.board[pit]
-        self.board[pit] = 0
+        else:
+            seeds = self.board[pit]
+            self.board[pit] = 0
 
-        current_pit = pit
-        while seeds > 0 :
-            current_pit = self.next_pit[current_pit]
-            if (current_pit == 1 and player == 2) or (current_pit == 2 and player == 1):
-                continue
+            current_pit = pit
+            while seeds > 0 :
+                current_pit = self.next_pit[current_pit]
+                if (current_pit == 1 and player == 2) or (current_pit == 2 and player == 1):
+                    continue
 
-            self.board[current_pit] += 1
-            seeds -= 1
+                self.board[current_pit] += 1
+                seeds -= 1
 
 
-        if current_pit in self.player1_pits + self.player2_pits:
-            if self.board[current_pit] == 1 and current_pit in (
-                self.player1_pits if player == 1 else self.player2_pits
-            ):
-                opposite = self.opposite_pits[current_pit]
-                captured_seeds = self.board[opposite]
-                self.board[opposite] = 0
-                self.board[current_pit] = 0
-                self.board[player] += captured_seeds + 1
+            if current_pit in self.player1_pits + self.player2_pits:
+                if self.board[current_pit] == 1 and current_pit in (
+                    self.player1_pits if player == 1 else self.player2_pits
+                ):
+                    opposite = self.opposite_pits[current_pit]
+                    captured_seeds = self.board[opposite]
+                    self.board[opposite] = 0
+                    self.board[current_pit] = 0
+                    self.board[player] += captured_seeds + 1
 
-        return current_pit
+            return current_pit
